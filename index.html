@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday!</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ffecd2, #fcb69f);
+    }
+
+    .start-screen {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: inherit;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 999;
+    }
+
+    .start-screen h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .start-button {
+      padding: 1rem 2rem;
+      font-size: 1.5rem;
+      background: #ff6b6b;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .start-button:hover {
+      transform: scale(1.1) rotate(-2deg);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .cake-container {
+      position: absolute;
+      width: 100%;
+      top: 40%;
+      text-align: center;
+      z-index: 1;
+      display: none;
+    }
+
+    .cake {
+      font-size: 5rem;
+    }
+
+    .balloon, .confetti, .photo {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="start-screen" id="startScreen">
+    <h1>พร้อมจะฉลองยังงง 🎉</h1>
+    <button class="start-button" onclick="startParty()">กดเลยดิ่ 😎</button>
+  </div>
+
+  <div class="cake-container" id="cakeContainer">
+    <div class="cake">🎂</div>
+    <h1>Happy Birthday!</h1>
+  </div>
+
+  <script>
+    function startParty() {
+      document.getElementById('startScreen').classList.add('hidden');
+      document.getElementById('cakeContainer').style.display = 'block';
+
+      const colors = ['#ff6b6b','#feca57','#54a0ff','#5f27cd','#1dd1a1'];
+      const balloonCount = 12;
+      const body = document.body;
+
+      for (let i = 0; i < balloonCount; i++) {
+        const span = document.createElement('span');
+        span.className = 'balloon';
+        span.textContent = '🎈';
+        span.style.left = Math.random() * 100 + 'vw';
+        span.style.animationDuration = 6 + Math.random() * 4 + 's';
+        span.style.fontSize = (2 + Math.random() * 3) + 'rem';
+        span.style.position = 'absolute';
+        span.style.bottom = '-100px';
+        span.style.animation = 'rise 8s infinite ease-in';
+        span.style.opacity = 0.8;
+        span.style.display = 'block';
+        body.appendChild(span);
+      }
+
+      const confettiCount = 40;
+      for (let i = 0; i < confettiCount; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'confetti';
+        dot.style.left = Math.random() * 100 + 'vw';
+        dot.style.background = colors[Math.floor(Math.random() * colors.length)];
+        dot.style.animationDuration = 3 + Math.random() * 4 + 's';
+        dot.style.position = 'absolute';
+        dot.style.width = '8px';
+        dot.style.height = '8px';
+        dot.style.borderRadius = '50%';
+        dot.style.animation = 'confetti-fall 5s infinite';
+        dot.style.opacity = 0.7;
+        dot.style.display = 'block';
+        body.appendChild(dot);
+      }
+
+      const photos = [
+        '01.jpg',
+        '02.jpg'
+      ];
+      photos.forEach((src, idx) => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.className = 'photo';
+        img.style.width = '150px';
+        img.style.borderRadius = '10px';
+        img.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
+        img.style.position = 'absolute';
+        img.style.bottom = '-200px';
+        img.style.animation = 'floatUp 10s infinite ease-in-out';
+        img.style.left = (20 + idx * 50) + 'vw';
+        img.style.animationDelay = (idx * 3) + 's';
+        img.style.animationDuration = 8 + Math.random() * 4 + 's';
+        img.style.opacity = 0;
+        img.style.display = 'block';
+        body.appendChild(img);
+      });
+    }
+  </script>
+
+  <style>
+    @keyframes rise {
+      0% { transform: translateY(0) scale(0.8); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-120vh) scale(1.2); opacity: 0; }
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(0.8); opacity: 0; }
+      30% { opacity: 1; }
+      100% { transform: translateY(-120vh) scale(1.1); opacity: 0; }
+    }
+
+    @keyframes confetti-fall {
+      0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</body>
+</html>
